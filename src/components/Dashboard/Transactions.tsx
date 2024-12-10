@@ -5,10 +5,7 @@ import { ITransaction } from "../../utils";
 export const Transactions = () => {
   const { transactions } = useDashboard();
   return (
-    <Stack gap={2}>
-      <Typography variant="h3" fontWeight={600} color="info.dark">
-        Transactions
-      </Typography>
+   
       <Stack
         width="100%"
         borderRadius="20px"
@@ -20,7 +17,6 @@ export const Transactions = () => {
           <TransactionDetail key={index} {...transaction} />
         ))}
       </Stack>
-    </Stack>
   );
 };
 

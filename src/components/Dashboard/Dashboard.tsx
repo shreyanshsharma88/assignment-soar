@@ -3,6 +3,7 @@ import { useViewPort } from "../../hooks";
 import { MyCards } from "./MyCards";
 import { Transactions } from "./Transactions";
 import { WeeklyActivities } from "./WeeklyActivities";
+import { ExpenseStats } from "./ExpenseStats";
 
 export const Dashboard = () => {
   const { isMobile } = useViewPort();
@@ -28,8 +29,16 @@ export const Dashboard = () => {
           sx={{
             gridArea: component.name,
             p: 2,
+            display: "flex",
+            flexDirection: "column",
+            gap: "1rem",
           }}
         >
+          {!!component.headerComponent && (
+            <Typography variant="h3" fontWeight={600} color="info.dark">
+              {component.headerComponent}
+            </Typography>
+          )}
           {component.component}
         </Box>
       ))}
@@ -45,33 +54,26 @@ const gridComponents = [
   {
     name: "recent-transactions",
     component: <Transactions />,
+    headerComponent: "Recent Transactions",
   },
   {
     name: "weekly-activity",
-    component: <WeeklyActivities/>,
+    component: <WeeklyActivities />,
+    headerComponent: "Weekly Activities",
   },
   {
     name: "expense-stats",
-    component: (
-      <Typography variant="h3" fontWeight={600} color="info.dark">
-        Expense Statistics
-      </Typography>
-    ),
+    component: <ExpenseStats />,
+    headerComponent: "Expense Statistics",
   },
   {
     name: "quick-transfer",
-    component: (
-      <Typography variant="h3" fontWeight={600} color="info.dark">
-        Quick Transfer
-      </Typography>
-    ),
+    component: <Typography>Quick Transfer</Typography>,
+    headerComponent: "Quick Transfer",
   },
   {
     name: "balance-history",
-    component: (
-      <Typography variant="h3" fontWeight={600} color="info.dark">
-        Balance History
-      </Typography>
-    ),
+    component: <Typography>Balance History</Typography>,
+    headerComponent: "Balance History",
   },
 ];

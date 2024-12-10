@@ -1,16 +1,18 @@
-import { Route, Routes } from "react-router-dom";
-import { AppThemeProvider, DashboardProvider } from "./providers";
-import { BaseLayout, Dashboard, sidebarOptions } from "./components";
 import { Typography } from "@mui/material";
 import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
   BarElement,
+  CategoryScale,
+  Chart as ChartJS,
+  Legend,
+  LinearScale,
+  PieController,
   Title,
   Tooltip,
-  Legend,
+  ArcElement
 } from "chart.js";
+import { Route, Routes } from "react-router-dom";
+import { BaseLayout, Dashboard, sidebarOptions } from "./components";
+import { AppThemeProvider, DashboardProvider } from "./providers";
 
 function App() {
   ChartJS.register(
@@ -19,7 +21,9 @@ function App() {
     BarElement,
     Title,
     Tooltip,
-    Legend
+    Legend,
+    PieController,
+    ArcElement
   );
   return (
     <AppThemeProvider>
