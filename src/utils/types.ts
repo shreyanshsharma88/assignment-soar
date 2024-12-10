@@ -24,4 +24,6 @@ export interface DashboardContextType {
       date: string;
       description: string;
       type: "deposit" | "withdrawal";
+      icon: JSX.Element;
+      backgroundColor: string;
   }

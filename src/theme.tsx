@@ -30,12 +30,31 @@ export const customTheme = () => {
     components: {
       MuiButton: {
         styleOverrides: {
-          text:{
-            color: '#343c6a',
-            fontSize: '18px',
-            textTransform: 'none',
-          }
-        }
+          text: {
+            color: "#343c6a",
+            fontSize: "18px",
+            textTransform: "none",
+          },
+        },
+      },
+      MuiCircularProgress: {
+        styleOverrides: {
+          root: {
+            color: "#396aff",
+            alignSelf: "center",
+          },
+        },
+      },
+      MuiLinearProgress: {
+        styleOverrides: {
+          root: {
+            borderRadius: "4px",
+            backgroundColor: "#396aff",
+          },
+          bar: {
+            borderRadius: "2px",
+          },
+        },
       },
     },
   });
@@ -128,7 +147,7 @@ const getTypographyStyles = () => ({
     fontSize: "0.85rem",
     fontWeight: 400,
     lineHeight: 1.66,
-    color: '#718ebf',
+    color: "#718ebf",
     "@media (max-width:600px)": {
       fontSize: "0.625rem",
     },

@@ -1,12 +1,21 @@
-import { CreditCard } from "@mui/icons-material";
-import { Button, Collapse, Stack, Typography, useTheme } from "@mui/material";
+import { CreditCard, TollTwoTone } from "@mui/icons-material";
+import {
+  Button,
+  Collapse,
+  LinearProgress,
+  Stack,
+  Typography,
+  useTheme,
+} from "@mui/material";
+import { useSearchParams } from "react-router-dom";
+import { useDummyPromise } from "../../hooks";
 import { useDashboard } from "../../providers";
 import { ICreditCardDetails } from "../../utils";
-import { useSearchParams } from "react-router-dom";
 
 export const MyCards = () => {
   const { creditCardDetails } = useDashboard();
   const [sp, ssp] = useSearchParams();
+  const { loading, dummyPromise } = useDummyPromise(1500);
 
   return (
     <Stack width="100%" gap={4}>
@@ -22,8 +31,8 @@ export const MyCards = () => {
         <Button
           variant="text"
           onClick={() => {
-            console.log("here");
             if (!sp.get("moreCards")) {
+              dummyPromise();
               ssp({ ...sp, moreCards: "true" });
             } else {
               const params = new URLSearchParams(sp);
@@ -44,12 +53,23 @@ export const MyCards = () => {
           <CustomCard {...card} key={`${card.cardNumber}${index}`} />
         ))}
       </Stack>
-      <Collapse in={!!sp.get("moreCards")}>
-        <Stack overflow="auto" direction="row" gap={5}>
-          {creditCardDetails?.slice(2).map((card, index) => (
-            <CustomCard {...card} key={`${card.cardNumber}${index}`} />
-          ))}
-        </Stack>
+      <Collapse
+        in={!!sp.get("moreCards")}
+        sx={{
+          width: "100%",
+        }}
+      >
+        <>
+          {loading ? (
+            <LinearProgress />
+          ) : (
+            <Stack overflow="auto" direction="row" gap={5}>
+              {creditCardDetails?.slice(2).map((card, index) => (
+                <CustomCard {...card} key={`${card.cardNumber}${index}`} />
+              ))}
+            </Stack>
+          )}
+        </>
       </Collapse>
     </Stack>
   );
@@ -129,10 +149,12 @@ const CustomCard = (card: ICreditCardDetails) => {
         bgcolor={card.isPrimary ? "#5c5b68" : "inherit"}
         pt={2}
         borderTop={card.isPrimary ? "none" : "3px solid #f3f6f9"}
+        justifyContent={"space-between"}
       >
         <Typography fontSize={20} fontWeight={550}>
           {cardNumber}
         </Typography>
+        <TollTwoTone sx={{fontSize: '30px'}}/>
       </Stack>
     </Stack>
   );

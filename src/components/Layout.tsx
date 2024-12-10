@@ -84,7 +84,14 @@ export const Layout: FC<PropsWithChildren> = ({ children }) => {
           <CustomTextInput />
         </Box>
       )}
-      <Box sx={{ gridArea: "outlet", overflow: "auto", zIndex: 0 }}>
+      <Box
+        sx={{
+          gridArea: "outlet",
+          overflow: "auto",
+          zIndex: 0,
+          maxWidth: '1650px',
+        }}
+      >
         {/* <Outlet /> */}
         {children}
       </Box>

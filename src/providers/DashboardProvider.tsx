@@ -10,7 +10,7 @@ import {
   ICreditCardDetails,
   ITransaction,
 } from "../utils";
-import { DummyCreditCardDetails, DummyTransactions } from "../utils/dummyData";
+import { DummyCreditCardDetails, DummyTransactions } from "../utils/dummyData.tsx";
 
 export const DashboardProvider: React.FC<PropsWithChildren> = ({
   children,

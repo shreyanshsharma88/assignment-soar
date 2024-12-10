@@ -1,6 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import { useViewPort } from "../../hooks";
 import { MyCards } from "./MyCards";
+import { Transactions } from "./Transactions";
 
 export const Dashboard = () => {
   const { isMobile } = useViewPort();
@@ -42,11 +43,7 @@ const gridComponents = [
   },
   {
     name: "recent-transactions",
-    component: (
-      <Typography variant="h3" fontWeight={600} color="info.dark">
-        Recent Transactions
-      </Typography>
-    ),
+    component: <Transactions/>,
   },
   {
     name: "weekly-activity",

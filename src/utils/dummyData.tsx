@@ -1,4 +1,5 @@
-import { ICreditCardDetails ,ITransaction } from "./types";
+import { ContactlessOutlined, CreditCardOutlined, PaidOutlined } from "@mui/icons-material";
+import { ICreditCardDetails, ITransaction } from "./types";
 
 export const DummyCreditCardDetails: ICreditCardDetails[] = [
   {
@@ -42,18 +43,25 @@ export const DummyTransactions: ITransaction[] = [
         date: "2021-09-01",
         description: "Deposit from my card",
         type: "deposit",
+        icon: <CreditCardOutlined sx={{color: '#ffc555'}}/>,
+        backgroundColor: '#fff5d9'
+        
     },
     {
         amount: 850,
         date: "2021-09-01",
         description: "Deposit paypal",
         type: "withdrawal",
+        icon: <ContactlessOutlined sx={{color:"info.main"}}/>,
+        backgroundColor:"#e7edff"
     },
     {
         amount: 8150,
         date: "2021-09-01",
         description: "Jemi Wilson",
         type: "deposit",
+        icon: <PaidOutlined color="success"/>,
+        backgroundColor: 'success.light'
 
     },
     {
@@ -61,5 +69,7 @@ export const DummyTransactions: ITransaction[] = [
         date: "2021-09-01",
         description: "Deposit paypal",
         type: "withdrawal",
+        icon: <ContactlessOutlined sx={{color:"info.main"}}/>,
+        backgroundColor:"#e7edff"
     }
 ]
