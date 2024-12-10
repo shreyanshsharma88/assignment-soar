@@ -10,18 +10,34 @@ import {
   Settings,
   TabletMac,
   TipsAndUpdates,
+  Toc,
 } from "@mui/icons-material";
-import { Box, Stack, TextField, Typography } from "@mui/material";
+import { Box, Drawer, Stack, TextField, Typography } from "@mui/material";
 import { FC, PropsWithChildren, useCallback } from "react";
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import {
+  Outlet,
+  useLocation,
+  useNavigate,
+  useSearchParams,
+} from "react-router-dom";
+import { useViewPort } from "../hooks";
 
-export const Layout: FC<PropsWithChildren> = () => {
+export const BaseLayout = () => {
+  return (
+    <Layout>
+      <Outlet />
+    </Layout>
+  );
+};
+export const Layout: FC<PropsWithChildren> = ({ children }) => {
+  const { isDesktop, isMobile } = useViewPort();
+  const [searchParam, setSearchParam] = useSearchParams();
   return (
     <Box
       sx={{
-        display: "grid",
-        gridTemplateColumns: "300px 1fr",
-        gridTemplateRows: "100px 1fr",
+        display: isDesktop ? "grid" : "column",
+        gridTemplateColumns: "300px auto",
+        gridTemplateRows: "100px auto",
         gridTemplateAreas: `
             "sidebar header"
             "sidebar outlet"
@@ -34,29 +50,70 @@ export const Layout: FC<PropsWithChildren> = () => {
         sx={{
           gridArea: "header",
           zIndex: 1,
-          borderBottom: "1px solid #e0e0e0",
+          borderBottom: isDesktop ? "1px solid #e0e0e0" : "none",
         }}
       >
-        <Header />
+        <Header
+          isMobile={isMobile}
+          handleButtonClick={() => {
+            setSearchParam({ sideMenu: "true" });
+          }}
+        />
       </Box>
-      <Box
-        sx={{
-          gridArea: "sidebar",
-          bgcolor: "primary.light",
-          borderRight: "1px solid #e0e0e0",
-          height: "100%",
+      {isDesktop && (
+        <Box
+          sx={{
+            gridArea: "sidebar",
+            bgcolor: "primary.light",
+            borderRight: "1px solid #e0e0e0",
+            height: "100%",
+          }}
+        >
+          <SideBar />
+        </Box>
+      )}
+      {isMobile && (
+        <Box
+          width="100%"
+          bgcolor="common.white"
+          display="flex"
+          justifyContent="center"
+        >
+          <CustomTextInput />
+        </Box>
+      )}
+      <Box sx={{ gridArea: "outlet", overflow: "auto", zIndex: -1 }}>
+        {/* <Outlet /> */}
+        {children}
+      </Box>
+      <SidebarDrawer
+        open={!!searchParam.get("sideMenu") && isMobile}
+        handleClose={() => {
+          const params = new URLSearchParams(searchParam);
+          params.delete("sideMenu");
+          setSearchParam(params);
         }}
-      >
-        <SideBar />
-      </Box>
-      <Box sx={{ gridArea: "outlet", overflow: "auto", p: 2 }}>
-        <Outlet />
-      </Box>
+      />
     </Box>
   );
 };
 
+const SidebarDrawer = ({
+  open,
+  handleClose,
+}: {
+  open: boolean;
+  handleClose: () => void;
+}) => {
+  return (
+    <Drawer open={open} onClose={handleClose}>
+      <SideBar />
+    </Drawer>
+  );
+};
+
 const SideBar = () => {
+  const { isMobile } = useViewPort();
   const navigate = useNavigate();
   const location = useLocation();
   const isCurrentPath = useCallback(
@@ -71,7 +128,7 @@ const SideBar = () => {
       height="100%"
       borderRight="1px solid #e0e0e0"
       p={2}
-      pl={4}
+      pl={isMobile ? 2 : 4}
       overflow="auto"
     >
       <Stack pt={3} direction="row" gap={2} alignItems="center">
@@ -80,7 +137,7 @@ const SideBar = () => {
           Soar Task
         </Typography>
       </Stack>
-      <Stack direction="column" gap={3} pt={6}>
+      <Stack direction="column" gap={isMobile ? 2 : 3} pt={isMobile ? 3 : 6}>
         {sidebarOptions.map((option) => (
           <Stack
             key={option.label}
@@ -123,7 +180,13 @@ const SideBar = () => {
   );
 };
 
-const Header = () => {
+const Header = ({
+  isMobile,
+  handleButtonClick,
+}: {
+  isMobile: boolean;
+  handleButtonClick: () => void;
+}) => {
   return (
     <Stack
       direction="row"
@@ -132,35 +195,43 @@ const Header = () => {
       bgcolor="#fff"
       height="100%"
       p={2}
-      px={6}
+      px={isMobile ? 2 : 6}
       alignItems="center"
     >
+      {isMobile && <Toc onClick={handleButtonClick} />}
       <Typography variant="h3" fontWeight={550}>
         Overview
       </Typography>
       <Stack direction="row" gap={2}>
-        <TextField
-          placeholder="Search for something"
-          slotProps={{
-            input: {
-              startAdornment: <Search sx={{mr:'20px'}} />,
-              sx:{
-                backgroundColor: 'primary.main',
-                borderRadius: '25px',
-                width: '270px',
-                height: '50px',
-              }
-            },
-          }}
-        />
+        {!isMobile && <CustomTextInput />}
       </Stack>
     </Stack>
   );
 };
 
+const CustomTextInput = () => {
+  const { isMobile } = useViewPort();
+  return (
+    <TextField
+      placeholder="Search for something"
+      slotProps={{
+        input: {
+          startAdornment: <Search sx={{ mr: "20px" }} />,
+          sx: {
+            backgroundColor: "primary.main",
+            borderRadius: "25px",
+            width: isMobile ? "340px" : "270px",
+            height: "50px",
+          },
+        },
+      }}
+    />
+  );
+};
+
 export default Layout;
 
-const sidebarOptions = [
+export const sidebarOptions = [
   { label: "Dashboard", icon: <Home /> },
   { label: "Transactions", icon: <MonetizationOn /> },
   { label: "Accounts", icon: <Person2 /> },

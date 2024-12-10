@@ -39,7 +39,10 @@ export const DashboardProvider: React.FC<PropsWithChildren> = ({
   );
 };
 
-export const DashboardContext = createContext<DashboardContextType | undefined>(
-  undefined
-);
+export const DashboardContext = createContext<DashboardContextType>({
+  creditCardDetails: null,
+  setCreditCardDetails: () => null,
+  transactions: null,
+  setTransactions: () => null,
+});
 export const useDashboard = () => useContext(DashboardContext);

@@ -7,6 +7,7 @@ export const DummyCreditCardDetails: ICreditCardDetails[] = [
     expirationDate: "12/22",
     cardNumber: "1234 5678 9101 1121",
     cardType: "Mastercard",
+    isPrimary: true
   },
   {
     balance: 10000,
@@ -15,6 +16,7 @@ export const DummyCreditCardDetails: ICreditCardDetails[] = [
     expirationDate: "12/22",
     cardNumber: "1234 5678 9101 1121",
     cardType: "Visa",
+    isPrimary: false
   },
   {
     balance: 10000,
@@ -22,6 +24,7 @@ export const DummyCreditCardDetails: ICreditCardDetails[] = [
     expirationDate: "12/22",
     cardNumber: "1234 5678 9101 1121",
     cardType: "Mastercard",
+    isPrimary: false
     },
     {
         balance: 10000,
@@ -29,6 +32,7 @@ export const DummyCreditCardDetails: ICreditCardDetails[] = [
         expirationDate: "12/22",
         cardNumber: "1234 5678 9101 1121",
         cardType: "Mastercard",
+        isPrimary: false
     },
 ];
 

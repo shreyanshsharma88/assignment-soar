@@ -1,7 +1,6 @@
 import { createTheme } from "@mui/material";
 import { TypographyOptions } from "@mui/material/styles/createTypography";
 
-
 export const customTheme = () => {
   const getTheme = createTheme({
     palette: {
@@ -24,10 +23,21 @@ export const customTheme = () => {
         main: "#ffbb38",
       },
       background: {
-        default: '#F4F7FA'
-      }
+        default: "#F4F7FA",
+      },
     },
-    typography: getTypographyStyles() as TypographyOptions
+    typography: getTypographyStyles() as TypographyOptions,
+    components: {
+      MuiButton: {
+        styleOverrides: {
+          text:{
+            color: '#343c6a',
+            fontSize: '18px',
+            textTransform: 'none',
+          }
+        }
+      },
+    },
   });
   return { getTheme };
 };
@@ -115,9 +125,10 @@ const getTypographyStyles = () => ({
     },
   },
   caption: {
-    fontSize: "0.75rem",
+    fontSize: "0.85rem",
     fontWeight: 400,
     lineHeight: 1.66,
+    color: '#718ebf',
     "@media (max-width:600px)": {
       fontSize: "0.625rem",
     },

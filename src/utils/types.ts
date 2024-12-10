@@ -16,6 +16,7 @@ export interface DashboardContextType {
     expirationDate: string;
     cardHolderName: string;
     cardType: string;
+    isPrimary: boolean
   }
   
   export interface ITransaction {
