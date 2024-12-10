@@ -39,7 +39,7 @@ function App() {
                 <Route
                   key={opt.label}
                   path={opt.label.toLowerCase().split(" ").join("-")}
-                  element={<Typography>Not up</Typography>}
+                  element={<Typography>404 Not Found</Typography>}
                 />
               );
             })}

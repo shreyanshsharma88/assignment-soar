@@ -1,5 +1,5 @@
 import { ContactlessOutlined, CreditCardOutlined, PaidOutlined } from "@mui/icons-material";
-import { ICreditCardDetails, ITransaction, IWeeklyActivityChart } from "./types";
+import { ICreditCardDetails, IQuickTransferUser, ITransaction, IWeeklyActivityChart } from "./types";
 
 export const DummyCreditCardDetails: ICreditCardDetails[] = [
   {
@@ -93,3 +93,34 @@ export const DummyWeeklyActivity: IWeeklyActivityChart = {
         }
     ]   
 }
+
+export const DummyQuickTransferUsers: IQuickTransferUser[] = [
+    {
+        name: "John Doe",
+        accountNumber: "1246567890",
+        bank: "GTBank",
+        avatar: "https://randomuser.me/api/portraits/men/75.jpg",
+        position: "CEO"
+    },
+    {
+        name: "Jane Doe",
+        accountNumber: "9875367890",
+        bank: "GTBank",
+        avatar: "https://randomuser.me/api/portraits/women/75.jpg",
+        position: "CTO"
+    },
+    {
+        name: "Randy Press",
+        accountNumber: "12300637890",
+        bank: "GTBank",
+        avatar: "https://randomuser.me/api/portraits/men/76.jpg",
+        position: "COO"
+    },
+    {
+        name: "Livia Bator",
+        accountNumber: "1234567890",
+        bank: "GTBank",
+        avatar: "https://randomuser.me/api/portraits/women/76.jpg",
+        position: "Co-worker"
+    }
+]

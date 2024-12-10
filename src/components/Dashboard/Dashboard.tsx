@@ -4,6 +4,7 @@ import { MyCards } from "./MyCards";
 import { Transactions } from "./Transactions";
 import { WeeklyActivities } from "./WeeklyActivities";
 import { ExpenseStats } from "./ExpenseStats";
+import { QuickTransfer } from "./QuickTransfer";
 
 export const Dashboard = () => {
   const { isMobile } = useViewPort();
@@ -11,9 +12,8 @@ export const Dashboard = () => {
     <Box
       sx={{
         display: isMobile ? "column" : "grid",
-        gridTemplateColumns: "0.90fr 1fr 1fr",
+        gridTemplateColumns: "1fr 1fr 1fr",
         gridTemplateRows: "auto auto auto",
-        gap: isMobile ? "1rem" : "2rem",
         gridTemplateAreas: `
           "my-cards my-cards recent-transactions"
           "weekly-activity weekly-activity expense-stats"
@@ -68,7 +68,7 @@ const gridComponents = [
   },
   {
     name: "quick-transfer",
-    component: <Typography>Quick Transfer</Typography>,
+    component: <QuickTransfer/>,
     headerComponent: "Quick Transfer",
   },
   {

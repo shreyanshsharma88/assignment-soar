@@ -5,8 +5,12 @@ export interface DashboardContextType {
   >;
   transactions: ITransaction[] | null;
   setTransactions: React.Dispatch<React.SetStateAction<ITransaction[] | null>>;
-  weeklyActivity: IWeeklyActivityChart;
-  setWeeklyActivity: React.Dispatch<React.SetStateAction<IWeeklyActivityChart>>;
+  weeklyActivity: IWeeklyActivityChart ;
+  setWeeklyActivity: React.Dispatch<React.SetStateAction<IWeeklyActivityChart >>;
+  quickTransferUsers: IQuickTransferUser[] | null;
+  setQuickTransferUsers: React.Dispatch<
+    React.SetStateAction<IQuickTransferUser[] | null>
+  >;
 }
 
 export interface ICreditCardDetails {
@@ -36,4 +40,12 @@ export interface IWeeklyActivityChart {
     borderRadius: number;
     barThickness: number;
   }[];
+}
+
+export interface IQuickTransferUser {
+  name: string;
+  accountNumber: string;
+  bank: string;
+  avatar: string;
+  position: string;
 }

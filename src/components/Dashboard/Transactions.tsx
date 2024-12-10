@@ -12,6 +12,8 @@ export const Transactions = () => {
         bgcolor="common.white"
         p={2}
         gap={2}
+        maxHeight={400}
+        overflow='auto'
       >
         {transactions?.map((transaction, index) => (
           <TransactionDetail key={index} {...transaction} />
