@@ -1,5 +1,5 @@
 import { ContactlessOutlined, CreditCardOutlined, PaidOutlined } from "@mui/icons-material";
-import { ICreditCardDetails, ITransaction } from "./types";
+import { ICreditCardDetails, ITransaction, IWeeklyActivityChart } from "./types";
 
 export const DummyCreditCardDetails: ICreditCardDetails[] = [
   {
@@ -73,3 +73,23 @@ export const DummyTransactions: ITransaction[] = [
         backgroundColor:"#e7edff"
     }
 ]
+
+export const DummyWeeklyActivity: IWeeklyActivityChart = {
+    labels: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+    datasets: [
+        {
+            label: "Deposits",
+            data: [100, 150, 200, 50, 100, 250, 300],
+            backgroundColor: "#396aff",
+            borderRadius: 100,
+            barThickness: 15
+        },
+        {
+            label: "Withdrawals",
+            data: [50, 100, 150, 200, 250, 300, 350],
+            backgroundColor: "#000",
+            borderRadius: 100,
+            barThickness: 15
+        }
+    ]   
+}

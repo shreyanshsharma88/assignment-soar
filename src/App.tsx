@@ -2,7 +2,25 @@ import { Route, Routes } from "react-router-dom";
 import { AppThemeProvider, DashboardProvider } from "./providers";
 import { BaseLayout, Dashboard, sidebarOptions } from "./components";
 import { Typography } from "@mui/material";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
+
 function App() {
+  ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Title,
+    Tooltip,
+    Legend
+  );
   return (
     <AppThemeProvider>
       <DashboardProvider>
@@ -12,14 +30,15 @@ function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/profile" />
             {sidebarOptions.map((opt) => {
-              if(opt.label === "Dashboard") return ;
-              return(
-              <Route
-                key={opt.label}
-                path={opt.label.toLowerCase().split(" ").join("-")}
-                element={<Typography>Not up</Typography>}
-              />
-            )})}
+              if (opt.label === "Dashboard") return;
+              return (
+                <Route
+                  key={opt.label}
+                  path={opt.label.toLowerCase().split(" ").join("-")}
+                  element={<Typography>Not up</Typography>}
+                />
+              );
+            })}
           </Route>
         </Routes>
         {/* </Layout> */}

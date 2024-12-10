@@ -2,6 +2,7 @@ import { Box, Typography } from "@mui/material";
 import { useViewPort } from "../../hooks";
 import { MyCards } from "./MyCards";
 import { Transactions } from "./Transactions";
+import { WeeklyActivities } from "./WeeklyActivities";
 
 export const Dashboard = () => {
   const { isMobile } = useViewPort();
@@ -43,15 +44,11 @@ const gridComponents = [
   },
   {
     name: "recent-transactions",
-    component: <Transactions/>,
+    component: <Transactions />,
   },
   {
     name: "weekly-activity",
-    component: (
-      <Typography variant="h3" fontWeight={600} color="info.dark">
-        Weekly Activity
-      </Typography>
-    ),
+    component: <WeeklyActivities/>,
   },
   {
     name: "expense-stats",

@@ -90,6 +90,12 @@ export const Layout: FC<PropsWithChildren> = ({ children }) => {
           overflow: "auto",
           zIndex: 0,
           maxWidth: '1650px',
+          scrollbarWidth: 'none',
+          msOverflowStyle: 'none',
+          "&::-webkit-scrollbar": {
+            display: 'none'
+          }
+          
         }}
       >
         {/* <Outlet /> */}

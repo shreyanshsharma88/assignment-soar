@@ -9,8 +9,9 @@ import {
   DashboardContextType,
   ICreditCardDetails,
   ITransaction,
+  IWeeklyActivityChart,
 } from "../utils";
-import { DummyCreditCardDetails, DummyTransactions } from "../utils/dummyData.tsx";
+import { DummyCreditCardDetails, DummyTransactions, DummyWeeklyActivity } from "../utils/dummyData.tsx";
 
 export const DashboardProvider: React.FC<PropsWithChildren> = ({
   children,
@@ -22,14 +23,17 @@ export const DashboardProvider: React.FC<PropsWithChildren> = ({
   const [transactions, setTransactions] = useState<ITransaction[] | null>(
     DummyTransactions
   );
+  const [weeklyActivity, setWeeklyActivity] = useState<IWeeklyActivityChart>(DummyWeeklyActivity)
   const value = useMemo(
     () => ({
       creditCardDetails,
       setCreditCardDetails,
       transactions,
       setTransactions,
+      weeklyActivity,
+      setWeeklyActivity
     }),
-    [creditCardDetails, transactions]
+    [creditCardDetails, transactions, weeklyActivity]
   );
 
   return (
@@ -44,5 +48,7 @@ export const DashboardContext = createContext<DashboardContextType>({
   setCreditCardDetails: () => null,
   transactions: null,
   setTransactions: () => null,
+  setWeeklyActivity: () => null,
+  weeklyActivity: DummyWeeklyActivity
 });
 export const useDashboard = () => useContext(DashboardContext);
