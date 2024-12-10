@@ -25,7 +25,9 @@ import { useViewPort } from "../hooks";
 export const BaseLayout = () => {
   return (
     <Layout>
-      <Outlet />
+      <Box zIndex={100}>
+        <Outlet />
+      </Box>
     </Layout>
   );
 };
@@ -82,18 +84,20 @@ export const Layout: FC<PropsWithChildren> = ({ children }) => {
           <CustomTextInput />
         </Box>
       )}
-      <Box sx={{ gridArea: "outlet", overflow: "auto", zIndex: -1 }}>
+      <Box sx={{ gridArea: "outlet", overflow: "auto", zIndex: 0 }}>
         {/* <Outlet /> */}
         {children}
       </Box>
-      <SidebarDrawer
-        open={!!searchParam.get("sideMenu") && isMobile}
-        handleClose={() => {
-          const params = new URLSearchParams(searchParam);
-          params.delete("sideMenu");
-          setSearchParam(params);
-        }}
-      />
+      {!!searchParam.get("sideMenu") && isMobile && (
+        <SidebarDrawer
+          open={true}
+          handleClose={() => {
+            const params = new URLSearchParams(searchParam);
+            params.delete("sideMenu");
+            setSearchParam(params);
+          }}
+        />
+      )}
     </Box>
   );
 };

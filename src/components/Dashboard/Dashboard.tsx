@@ -1,24 +1,24 @@
-import { Box,  Typography } from "@mui/material";
-import { MyCards } from "./MyCards";
+import { Box, Typography } from "@mui/material";
 import { useViewPort } from "../../hooks";
+import { MyCards } from "./MyCards";
 
 export const Dashboard = () => {
-  const {isMobile} = useViewPort()
+  const { isMobile } = useViewPort();
   return (
     <Box
       sx={{
-        display:isMobile? 'column' : "grid",
+        display: isMobile ? "column" : "grid",
         gridTemplateColumns: "0.90fr 1fr 1fr",
         gridTemplateRows: "auto auto auto",
-        gap: isMobile ?"1rem" : '2rem',
+        gap: isMobile ? "1rem" : "2rem",
         gridTemplateAreas: `
           "my-cards my-cards recent-transactions"
           "weekly-activity weekly-activity expense-stats"
           "quick-transfer balance-history balance-history"
         `,
-        padding: isMobile ? "0.5rem" :"1rem 2rem",
+        padding: isMobile ? "0.5rem" : "1rem 2rem",
       }}
-      bgcolor={isMobile ? "common.white" : "background.default"}  
+      bgcolor={isMobile ? "common.white" : "background.default"}
     >
       {gridComponents.map((component) => (
         <Box
