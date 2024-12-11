@@ -5,6 +5,7 @@ import { Transactions } from "./Transactions";
 import { WeeklyActivities } from "./WeeklyActivities";
 import { ExpenseStats } from "./ExpenseStats";
 import { QuickTransfer } from "./QuickTransfer";
+import { BalanceHistory } from "./BalanceHistory";
 
 export const Dashboard = () => {
   const { isMobile } = useViewPort();
@@ -68,12 +69,12 @@ const gridComponents = [
   },
   {
     name: "quick-transfer",
-    component: <QuickTransfer/>,
+    component: <QuickTransfer />,
     headerComponent: "Quick Transfer",
   },
   {
     name: "balance-history",
-    component: <Typography>Balance History</Typography>,
+    component: <BalanceHistory />,
     headerComponent: "Balance History",
   },
 ];

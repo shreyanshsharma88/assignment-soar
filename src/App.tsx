@@ -8,7 +8,11 @@ import {
   PieController,
   Title,
   Tooltip,
-  ArcElement
+  ArcElement,
+   LineElement,
+   LineController,
+   PointElement,
+   Filler
 } from "chart.js";
 import { Route, Routes } from "react-router-dom";
 import { BaseLayout, Dashboard, sidebarOptions } from "./components";
@@ -23,7 +27,11 @@ function App() {
     Tooltip,
     Legend,
     PieController,
-    ArcElement
+    ArcElement,
+    LineElement,
+    LineController,
+    PointElement,
+    Filler
   );
   return (
     <AppThemeProvider>
