@@ -7,7 +7,7 @@ export const customTheme = () => {
       primary: { main: "#F4F7FA", light: "#fff" },
       info: {
         main: "#396aff",
-        light: "#e7edff",
+        light: "#839ccf",
         dark: "#343c6a",
       },
       success: {
@@ -35,7 +35,30 @@ export const customTheme = () => {
             fontSize: "18px",
             textTransform: "none",
           },
+          contained: {
+            backgroundColor: "#396aff",
+            color: "#fff",
+            "&:hover": {
+              backgroundColor: "#2f5ad7",
+            },
+            contained: {
+              backgroundColor: "#396aff",
+              color: "#fff",
+              "&:hover": {
+                backgroundColor: "#2f5ad7",
+              },
+            },
+            dark: {
+              backgroundColor: "#000",
+              color: "#fff",
+              "&:hover": {
+                backgroundColor: "#343c6a",
+              },
+            },
+          },
         },
+        
+
       },
       MuiCircularProgress: {
         styleOverrides: {

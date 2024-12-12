@@ -20,7 +20,7 @@ export const Dashboard = () => {
           "weekly-activity weekly-activity expense-stats"
           "quick-transfer balance-history balance-history"
         `,
-        padding: isMobile ? "0.5rem" : "1rem 2rem",
+      
       }}
       bgcolor={isMobile ? "common.white" : "background.default"}
     >

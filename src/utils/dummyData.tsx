@@ -1,5 +1,5 @@
 import { ContactlessOutlined, CreditCardOutlined, PaidOutlined } from "@mui/icons-material";
-import { ICreditCardDetails, IQuickTransferUser, ITransaction, IWeeklyActivityChart } from "./types";
+import { ICreditCardDetails, IQuickTransferUser, ITransaction, IUserDetails, IWeeklyActivityChart } from "./types";
 
 export const DummyCreditCardDetails: ICreditCardDetails[] = [
   {
@@ -124,3 +124,17 @@ export const DummyQuickTransferUsers: IQuickTransferUser[] = [
         position: "Co-worker"
     }
 ]
+
+export const DummyUserDetails: IUserDetails = {
+    name: "Charlene Reed",
+    city: "Indianapolis",
+    dob: "05/06/1998",
+    email: "charlene@gmail.com",
+    password: "password",
+    permanentAddress: "1234 Main St",
+    presentAddress: "1234 Main St",
+    username: "charlene",
+    country: "USA",
+    postalCode: "46204",
+    profilePic: "https://randomuser.me/api/portraits/women/77.jpg"
+}

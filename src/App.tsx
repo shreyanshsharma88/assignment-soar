@@ -1,22 +1,26 @@
 import { Typography } from "@mui/material";
 import {
+  ArcElement,
   BarElement,
   CategoryScale,
   Chart as ChartJS,
+  Filler,
   Legend,
   LinearScale,
+  LineController,
+  LineElement,
   PieController,
+  PointElement,
   Title,
   Tooltip,
-  ArcElement,
-   LineElement,
-   LineController,
-   PointElement,
-   Filler
 } from "chart.js";
 import { Route, Routes } from "react-router-dom";
-import { BaseLayout, Dashboard, sidebarOptions } from "./components";
-import { AppThemeProvider, DashboardProvider } from "./providers";
+import { BaseLayout, Dashboard, Settings, sidebarOptions } from "./components";
+import {
+  AppThemeProvider,
+  DashboardProvider,
+  UserDetailsProvider,
+} from "./providers";
 
 function App() {
   ChartJS.register(
@@ -35,26 +39,37 @@ function App() {
   );
   return (
     <AppThemeProvider>
-      <DashboardProvider>
-        {/* <Layout> */}
-        <Routes>
-          <Route element={<BaseLayout />}>
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/profile" />
-            {sidebarOptions.map((opt) => {
-              if (opt.label === "Dashboard") return;
-              return (
+      {/* <LocalizationProvider dateAdapter={AdapterDateFns}> */}
+        <DashboardProvider>
+          <UserDetailsProvider>
+            <Routes>
+              <Route element={<BaseLayout />}>
                 <Route
-                  key={opt.label}
-                  path={opt.label.toLowerCase().split(" ").join("-")}
-                  element={<Typography>404 Not Found</Typography>}
+                  path="/"
+                  element={
+                    <Typography variant="h1">
+                      Please navigate to dashboard/settings
+                    </Typography>
+                  }
                 />
-              );
-            })}
-          </Route>
-        </Routes>
-        {/* </Layout> */}
-      </DashboardProvider>
+                <Route path="/dashboard" element={<Dashboard />} />
+
+                <Route path="/settings" element={<Settings />} />
+                {sidebarOptions.map((opt) => {
+                  if (["Dashboard", "Settings"].includes(opt.label)) return;
+                  return (
+                    <Route
+                      key={opt.label}
+                      path={opt.label.toLowerCase().split(" ").join("-")}
+                      element={<Typography>404 Not Found</Typography>}
+                    />
+                  );
+                })}
+              </Route>
+            </Routes>
+          </UserDetailsProvider>
+        </DashboardProvider>
+      {/* </LocalizationProvider> */}
     </AppThemeProvider>
   );
 }

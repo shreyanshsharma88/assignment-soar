@@ -5,15 +5,24 @@ import {
   Handyman,
   Home,
   MonetizationOn,
+  NotificationsNoneOutlined,
   Person2,
   Search,
   Settings,
+  SettingsOutlined,
   TabletMac,
   TipsAndUpdates,
   Toc,
 } from "@mui/icons-material";
-import { Box, Drawer, Stack, TextField, Typography } from "@mui/material";
-import { FC, PropsWithChildren, useCallback } from "react";
+import {
+  Box,
+  Drawer,
+  IconButton,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
+import { FC, PropsWithChildren, useCallback, useMemo } from "react";
 import {
   Outlet,
   useLocation,
@@ -21,11 +30,13 @@ import {
   useSearchParams,
 } from "react-router-dom";
 import { useViewPort } from "../hooks";
+import { useUserDetails } from "../providers";
 
 export const BaseLayout = () => {
+  const {isMobile} = useViewPort()
   return (
     <Layout>
-      <Box zIndex={100}>
+      <Box zIndex={100} p={isMobile ? 0 :2}>
         <Outlet />
       </Box>
     </Layout>
@@ -89,13 +100,12 @@ export const Layout: FC<PropsWithChildren> = ({ children }) => {
           gridArea: "outlet",
           overflow: "auto",
           zIndex: 0,
-          maxWidth: '1650px',
-          scrollbarWidth: 'none',
-          msOverflowStyle: 'none',
+          maxWidth: "1650px",
+          scrollbarWidth: "none",
+          msOverflowStyle: "none",
           "&::-webkit-scrollbar": {
-            display: 'none'
-          }
-          
+            display: "none",
+          },
         }}
       >
         {/* <Outlet /> */}
@@ -123,7 +133,16 @@ const SidebarDrawer = ({
   handleClose: () => void;
 }) => {
   return (
-    <Drawer open={open} onClose={handleClose}>
+    <Drawer
+      anchor="left"
+      open={open}
+      onClose={handleClose}
+      PaperProps={{
+        sx: {
+          width: "75%",
+        },
+      }}
+    >
       <SideBar />
     </Drawer>
   );
@@ -204,6 +223,41 @@ const Header = ({
   isMobile: boolean;
   handleButtonClick: () => void;
 }) => {
+  const navigate = useNavigate();
+  const { userDetails} = useUserDetails()
+  const actionButtons = useMemo(() => {
+    return [
+      !isMobile ? {
+        label: 'settings',
+        icon: (
+          <IconButton onClick={() => navigate("/settings")}>
+            <SettingsOutlined sx={{ color: "info.dark" }} />
+          </IconButton>
+        ),
+      } : null,
+      !isMobile ? {
+        label: 'notification',
+        icon: (
+          <IconButton>
+            <NotificationsNoneOutlined sx={{ color: "info.main" }} />
+          </IconButton>
+        ),
+      }: null,
+      {
+        label: 'profile',
+        icon: (
+          <Box
+            borderRadius="100%"
+            height={60}
+            width={60}
+            component="img"
+            src={userDetails?.profilePic}
+          />
+        ),
+      },
+    ]
+  }, [isMobile, navigate, userDetails?.profilePic]);
+  
   return (
     <Stack
       direction="row"
@@ -219,8 +273,28 @@ const Header = ({
       <Typography variant="h3" fontWeight={550}>
         Overview
       </Typography>
-      <Stack direction="row" gap={2}>
+      <Stack direction="row" alignItems="center" gap={4}>
         {!isMobile && <CustomTextInput />}
+        {
+          actionButtons.map((button, index) => {
+            if(!button) return null
+            return(
+            <Box key={index} sx={{
+              '.MuiButtonBase-root': {
+                backgroundColor: "primary.main",
+                color: "common.white",
+                height:isMobile ? '40px' : "50px",
+                width: isMobile ? '40px' :"50px",
+                "&:hover": {
+                  backgroundColor: "primary.dark",
+                }
+              }
+            }}>
+              {button?.icon}
+            </Box>
+          )})
+        }
+        
       </Stack>
     </Stack>
   );

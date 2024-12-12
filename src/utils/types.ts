@@ -49,3 +49,17 @@ export interface IQuickTransferUser {
   avatar: string;
   position: string;
 }
+
+export interface IUserDetails {
+  name:string,
+  username: string,
+  email: string,
+  password: string,
+  dob: string,
+  presentAddress: string,
+  permanentAddress: string,
+  city: string,
+  postalCode: string,
+  country: string,
+  profilePic: string,
+}
