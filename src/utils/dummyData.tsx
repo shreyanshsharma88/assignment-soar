@@ -122,6 +122,20 @@ export const DummyQuickTransferUsers: IQuickTransferUser[] = [
         bank: "GTBank",
         avatar: "https://randomuser.me/api/portraits/women/76.jpg",
         position: "Co-worker"
+    },
+    {
+        name: "Olivia Benji",
+        accountNumber: "1230027890",
+        bank: "GTBank",
+        avatar: "https://randomuser.me/api/portraits/women/79.jpg",
+        position: "Designer"
+    },
+    {
+        name: "Mark Json",
+        accountNumber: "1002002874",
+        bank: "GTBank",
+        avatar: "https://randomuser.me/api/portraits/men/89.jpg",
+        position: "Friend"
     }
 ]
 

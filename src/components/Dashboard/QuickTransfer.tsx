@@ -2,23 +2,29 @@ import {
   Box,
   Button,
   CircularProgress,
+  IconButton,
   Stack,
   TextField,
   Typography,
 } from "@mui/material";
 import { useDashboard } from "../../providers";
 import { IQuickTransferUser, ITransaction } from "../../utils";
-import { useState } from "react";
-import { Send } from "@mui/icons-material";
+import { useMemo, useState } from "react";
+import { NavigateNext, Send } from "@mui/icons-material";
 import { useDummyPromise } from "../../hooks";
 import { format } from "date-fns";
 
 export const QuickTransfer = () => {
   const { quickTransferUsers, setTransactions } = useDashboard();
+  const [showAllUsers, setShowAllUsers] = useState(false);
   const [selectedUserNumber, setSelectedUser] =
     useState<IQuickTransferUser | null>(null);
   const [amount, setAmount] = useState<number>();
   const { dummyPromise, loading } = useDummyPromise();
+  const users = useMemo(() => {
+    if (showAllUsers) return quickTransferUsers;
+    return quickTransferUsers?.slice(0, 3);
+  }, [quickTransferUsers, showAllUsers]);
   return (
     <Stack
       bgcolor="common.white"
@@ -26,9 +32,11 @@ export const QuickTransfer = () => {
       gap={4}
       p={2}
       width="100%"
+      maxWidth={400}
+    
     >
-      <Stack direction="row" justifyContent="space-between">
-        {quickTransferUsers?.map((user) => (
+      <Stack overflow='auto' direction="row" gap={2} justifyContent="space-between">
+        {users?.map((user) => (
           <UserAvatar
             key={user.accountNumber}
             name={user.name}
@@ -42,6 +50,19 @@ export const QuickTransfer = () => {
             handleClick={() => setSelectedUser(user)}
           />
         ))}
+        {!showAllUsers && (
+          <IconButton
+            onClick={() => setShowAllUsers(true)}
+            sx={{
+              boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+              height: 60,
+              width: 60,
+              alignSelf: "center",
+            }}
+          >
+            <NavigateNext sx={{ color: "info.light" }} />
+          </IconButton>
+        )}
       </Stack>
       <Stack direction="row" gap={2} alignItems="center">
         <Typography variant="caption" fontSize="16px">
@@ -133,6 +154,7 @@ const UserAvatar = (
       onClick={user.handleClick}
       alignItems="center"
       sx={{ cursor: "pointer" }}
+      textAlign='center'
     >
       <Box
         component="img"
@@ -141,7 +163,12 @@ const UserAvatar = (
         width={75}
         borderRadius="100%"
       />
-      <Typography fontWeight={user.isSelected ? 600 : 400}>
+      <Typography sx={{
+        whiteSpace: "nowrap",
+        overflow: "hidden",
+        textOverflow: "ellipsis",
+        width: "100px",
+      }} fontWeight={user.isSelected ? 600 : 400}>
         {user.name}
       </Typography>
       <Typography variant="caption" fontWeight={user.isSelected ? 600 : 400}>
