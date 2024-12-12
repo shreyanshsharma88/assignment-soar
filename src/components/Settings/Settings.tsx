@@ -1,8 +1,8 @@
+import { yupResolver } from "@hookform/resolvers/yup";
 import { EditOutlined, Visibility, VisibilityOff } from "@mui/icons-material";
-import { TabContext, TabList, TabPanel } from "@mui/lab";
+import { LoadingButton, TabContext, TabList, TabPanel } from "@mui/lab";
 import {
   Box,
-  Button,
   Grid2,
   IconButton,
   Stack,
@@ -24,9 +24,8 @@ import {
   useWatch,
 } from "react-hook-form";
 import * as yup from "yup";
-import { useViewPort } from "../../hooks";
+import { useDummyPromise, useViewPort } from "../../hooks";
 import { useUserDetails } from "../../providers";
-import { yupResolver } from "@hookform/resolvers/yup";
 
 type TTabOption = "edit-profile" | "preferences" | "security";
 export const Settings = () => {
@@ -121,6 +120,7 @@ function handleProfilePicture(file: File): string {
 const EditProfile = () => {
   const { isMobile } = useViewPort();
   const { userDetails, setUserDetails } = useUserDetails();
+  const { dummyPromise, loading } = useDummyPromise(2000);
   const form = useForm({
     defaultValues: {
       name: userDetails?.name || "",
@@ -131,26 +131,21 @@ const EditProfile = () => {
       presentAddress: userDetails?.presentAddress || "",
       permanentAddress: userDetails?.permanentAddress || "",
       city: userDetails?.city || "",
-      postalCode:Number( userDetails?.postalCode) || 0,
+      postalCode: Number(userDetails?.postalCode) || 0,
       country: userDetails?.country || "",
       profilePic: userDetails?.profilePic || "",
-
     },
     resolver: yupResolver(validationSchema),
   });
 
-  const handleSubmit = form.handleSubmit((data) => {
-    console.log(data);
+  const handleSubmit = form.handleSubmit(async (data) => {
+    await dummyPromise();
     setUserDetails({
       ...data,
       postalCode: data.postalCode.toString(),
     });
   });
-  console.log({
-    err: form.formState.errors,
-    valid: form.formState.isValid,
-    values: form.watch(),
-  });
+ 
 
   return (
     <Stack
@@ -216,7 +211,7 @@ const EditProfile = () => {
             ))}
           </Grid2>
         </FormProvider>
-        <Button
+        <LoadingButton
           variant="text"
           disabled={!form.formState.isValid}
           onClick={handleSubmit}
@@ -231,9 +226,10 @@ const EditProfile = () => {
             width: isMobile ? "100%" : "250px",
             alignSelf: "end",
           }}
+          loading={loading}
         >
           Save
-        </Button>
+        </LoadingButton>
       </Stack>
     </Stack>
   );
@@ -249,9 +245,26 @@ const RenderFormFields = ({ type, formKey, label }: IFormFields) => {
     switch (type) {
       case "text": {
         return (
-          <CustomTextField
+          <TextField
             fullWidth
             value={watchValue}
+            sx={{
+              height: "55px",
+            }}
+            slotProps={{
+              input: {
+                sx: {
+                  backgroundColor: "common.white",
+                  borderRadius: "16px",
+                  width: "100%",
+                  height: "50px",
+                  color: "info.light",
+                  minHeight: "55px",
+                  fontSize: "18px",
+                  fontWeight: 500,
+                },
+              },
+            }}
             {...register(formKey)}
           />
         );
@@ -264,7 +277,24 @@ const RenderFormFields = ({ type, formKey, label }: IFormFields) => {
 
       case "number": {
         return (
-          <CustomTextField
+          <TextField
+            sx={{
+              height: "55px",
+            }}
+            slotProps={{
+              input: {
+                sx: {
+                  backgroundColor: "common.white",
+                  borderRadius: "16px",
+                  width: "100%",
+                  height: "50px",
+                  color: "info.light",
+                  minHeight: "55px",
+                  fontSize: "18px",
+                  fontWeight: 500,
+                },
+              },
+            }}
             fullWidth
             value={watchValue}
             type="number"
@@ -343,31 +373,6 @@ const PasswordInput = (props: TextFieldProps) => {
               {showPassword ? <VisibilityOff /> : <Visibility />}
             </IconButton>
           ),
-          sx: {
-            backgroundColor: "common.white",
-            borderRadius: "16px",
-            width: "100%",
-            height: "50px",
-            color: "info.light",
-            minHeight: "55px",
-            fontSize: "18px",
-            fontWeight: 500,
-          },
-        },
-      }}
-      {...props}
-    />
-  );
-};
-
-const CustomTextField = (props: TextFieldProps) => {
-  return (
-    <TextField
-      sx={{
-        height: "55px",
-      }}
-      slotProps={{
-        input: {
           sx: {
             backgroundColor: "common.white",
             borderRadius: "16px",
