@@ -21,7 +21,7 @@ import {
   FormProvider,
   useForm,
   useFormContext,
-  useWatch,
+  useWatch
 } from "react-hook-form";
 import * as yup from "yup";
 import { useDummyPromise, useViewPort } from "../../hooks";
@@ -98,7 +98,7 @@ const VisuallyHiddenInput = styled("input")({
   width: 1,
 });
 
-const validationSchema = yup.object({
+const validationSchema = yup.object().shape({
   name: yup.string().required("name is required"),
   username: yup.string().required("username is required"),
   email: yup.string().email("email is required").required(),
@@ -145,7 +145,6 @@ const EditProfile = () => {
       postalCode: data.postalCode.toString(),
     });
   });
- 
 
   return (
     <Stack
@@ -241,6 +240,8 @@ const RenderFormFields = ({ type, formKey, label }: IFormFields) => {
     control,
     name: formKey,
   });
+
+
   const renderInput = useCallback(() => {
     switch (type) {
       case "text": {
