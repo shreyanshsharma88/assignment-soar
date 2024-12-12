@@ -33,10 +33,10 @@ import { useViewPort } from "../hooks";
 import { useUserDetails } from "../providers";
 
 export const BaseLayout = () => {
-  const {isMobile} = useViewPort()
+  const { isMobile } = useViewPort();
   return (
     <Layout>
-      <Box zIndex={100} p={isMobile ? 0 :2}>
+      <Box zIndex={100} p={isMobile ? 0 : 2}>
         <Outlet />
       </Box>
     </Layout>
@@ -224,27 +224,32 @@ const Header = ({
   handleButtonClick: () => void;
 }) => {
   const navigate = useNavigate();
-  const { userDetails} = useUserDetails()
+  const location = useLocation();
+  const { userDetails } = useUserDetails();
   const actionButtons = useMemo(() => {
     return [
-      !isMobile ? {
-        label: 'settings',
-        icon: (
-          <IconButton onClick={() => navigate("/settings")}>
-            <SettingsOutlined sx={{ color: "info.dark" }} />
-          </IconButton>
-        ),
-      } : null,
-      !isMobile ? {
-        label: 'notification',
-        icon: (
-          <IconButton>
-            <NotificationsNoneOutlined sx={{ color: "info.main" }} />
-          </IconButton>
-        ),
-      }: null,
+      !isMobile
+        ? {
+            label: "settings",
+            icon: (
+              <IconButton onClick={() => navigate("/settings")}>
+                <SettingsOutlined sx={{ color: "info.dark" }} />
+              </IconButton>
+            ),
+          }
+        : null,
+      !isMobile
+        ? {
+            label: "notification",
+            icon: (
+              <IconButton>
+                <NotificationsNoneOutlined sx={{ color: "info.main" }} />
+              </IconButton>
+            ),
+          }
+        : null,
       {
-        label: 'profile',
+        label: "profile",
         icon: (
           <Box
             borderRadius="100%"
@@ -255,9 +260,9 @@ const Header = ({
           />
         ),
       },
-    ]
+    ];
   }, [isMobile, navigate, userDetails?.profilePic]);
-  
+
   return (
     <Stack
       direction="row"
@@ -271,30 +276,31 @@ const Header = ({
     >
       {isMobile && <Toc onClick={handleButtonClick} />}
       <Typography variant="h3" fontWeight={550}>
-        Overview
+        {location.pathname.includes("settings") ? "Settings" : " Overview"}
       </Typography>
       <Stack direction="row" alignItems="center" gap={4}>
         {!isMobile && <CustomTextInput />}
-        {
-          actionButtons.map((button, index) => {
-            if(!button) return null
-            return(
-            <Box key={index} sx={{
-              '.MuiButtonBase-root': {
-                backgroundColor: "primary.main",
-                color: "common.white",
-                height:isMobile ? '40px' : "50px",
-                width: isMobile ? '40px' :"50px",
-                "&:hover": {
-                  backgroundColor: "primary.dark",
-                }
-              }
-            }}>
+        {actionButtons.map((button, index) => {
+          if (!button) return null;
+          return (
+            <Box
+              key={index}
+              sx={{
+                ".MuiButtonBase-root": {
+                  backgroundColor: "primary.main",
+                  color: "common.white",
+                  height: isMobile ? "40px" : "50px",
+                  width: isMobile ? "40px" : "50px",
+                  "&:hover": {
+                    backgroundColor: "primary.dark",
+                  },
+                },
+              }}
+            >
               {button?.icon}
             </Box>
-          )})
-        }
-        
+          );
+        })}
       </Stack>
     </Stack>
   );

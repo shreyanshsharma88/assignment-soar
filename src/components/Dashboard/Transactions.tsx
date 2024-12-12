@@ -58,7 +58,7 @@ const TransactionDetail = (transaction: ITransaction) => {
         color={transaction.type === "withdrawal" ? "error" : "success"}
       >
         {transaction.type === "withdrawal" ? "-" : "+"}
-        {transaction.amount}
+        ${transaction.amount}
       </Typography>
     </Stack>
   );
