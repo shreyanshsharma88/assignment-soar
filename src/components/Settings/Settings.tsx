@@ -20,6 +20,7 @@ export const Settings = () => {
       borderRadius="25px"
       bgcolor="common.white"
       height="100%"
+      m={isMobile ? 2.5 : 0}
     >
       <TabContext value={selectedTab}>
         <TabList
